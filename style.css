@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --green:#339933;
+    --lightgreen:#ccffcc;
+    --box-shadow: 0 0 10px rgba(0,0,0/15%);
+    --light-yellow:#e0ffcd;
+
+}
+html{
+font-size: 16px;
+    -ms-scrollbar:scrollbar;;
+    -webkit-tap-highlight-color: transparent;
+    font-family: sans-serif;
+    --ms-text-size-adjust:100%;
+    -webkit-text-size-adjust: 100%;
+
+}
+body{
+    background-image: url('./images/image1.jpg');
+    width:100%;
+}
+.main{
+    width:85vw;
+    background:#fff;
+    box-shadow: 0 2px 6px 0 rgba(0 0 0/10%);
+    margin:1rem auto;
+    margin-top: 10rem;
+    padding:2%;
+}
+a{
+    text-decoration: none;
+}
+.title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin:1rem 0;
+    line-height: 2;
+    
+}
+.title p{
+    text-transform: capitalize;
+
+}
+ul{
+    list-style: none;
+}
+sup{
+    position: absolute;
+    top:15%;
+    background: #000;
+    border-radius: 50%;
+    height: 20px;
+    width:20px;
+    line-height: 15px;
+    text-align: center;
+    padding: .1rem;
+}
+.empty{
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    width: 59%;
+    padding: .5rem 1.5rem;
+    border-radius: 5px;
+    background:var(--lightgreen);
+    color: var(--green);
+    border: 1px solid var(--green);
+
+}
+.btn{
+    line-height: 2;
+    background-color: var(--light-yellow);
+    padding: 5px 35px;
+    display: inline-block;
+    border-radius: 30px;
+    color:#000;
+    text-transform: capitalize;
+    font-family: inherit;
+    font-size: 16px;
+    cursor:pointer;
+    user-select:none;
+    position: relative;
+    overflow:hidden;
+    vertical-align: middle;
+    transition: color .3s ease;
+    z-index:2;
+}
+.btn::before{
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    background-color: var(--green);
+    height:100%;
+    width:0;
+    z-index: -1;
+    transition: width .3s ease;
+    
+}
+.btn:hover::before{
+    width:100%;
+
+}
+label{
+    text-transform: capitalize;
+}
+input,textarea{
+    background-color: white;
+    border:none;
+    outline:none;
+    padding: .3s;
+    box-shadow:var(--box-shadow);
+    margin:.5rem 0;
+    border:1px solid var(--green);
+    width: 100%;
+
+}
+button{
+    background-color: transparent;
+    border:none;
+    outline: none;
+    cursor: pointer;
+
+}
+.banner{
+    background: url('/images/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    width:100%;
+    height:50vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.banner h1{
+    text-transform: uppercase;
+    color:#fff;
+    margin-left:3rem;
+
+}
+.title2{
+    border-top: 1px solid var(--green);
+    padding:1rem 2rem;
+    text-transform: uppercase;
+    box-shadow: var(--box-shadow);
+}
+.title2 a{
+    color:var(--green)
+}
