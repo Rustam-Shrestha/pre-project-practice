@@ -11,7 +11,7 @@
             <a href="contact.php">contact us</a>
         </nav>
         <div class="icons">
-            <i class="bx bx-user" id="user-btn"></i>
+            <i class="bx bx-user" id="user-btn" alt="user icon"></i>
             <a href="wishlist.php" class="cart-btn"> <i class="bx bx-heart"></i><sup>0</sup></a>
             <a href="cart.php" class="cart-btn"> <i class="bx bx-cart-download"></i><sup>0</sup></a>
             <i class="bx-list-plus bx" id="menu-btn" style="font-size:2rem;"></i>

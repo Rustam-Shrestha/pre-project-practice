@@ -251,7 +251,7 @@ header.scrolled {
     clip-path: polygon(0, 0, 100%, 0 100%, 0 0);
   }
   .header .flex .navbar.active {
-    clip-path: polygon(0, 0, 100%, 0 100%, 0 100%);
+    transform:translatey(100%);
   }
   .header .flex .navbar a {
     display: block;
