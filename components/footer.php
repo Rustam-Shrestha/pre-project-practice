@@ -9,7 +9,7 @@
     <div class="overlay"></div>
     <div class="footer-content">
         <div class="img-box">
-            <img src="./images/image1.jpg" alt="imagee">
+            <img style="width:60px; height:60px; border-radius:50%; box-shadow: 0 1px 9px white" src="./images/image2.jpg" alt="imagee">
         </div>
         <div class="inner-footer">
             <div class="card">
