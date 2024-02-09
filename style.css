@@ -28,6 +28,7 @@ body {
   margin: 1rem auto;
   margin-top: 10rem;
   padding: 2%;
+  
 }
 a {
   text-decoration: none;
@@ -158,7 +159,7 @@ header {
   box-shadow: var(--box-shadow);
   background-image: url("./images/image1.jpg") no-repeat;
 }
-.flex{
+.flex {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -231,32 +232,259 @@ header.scrolled {
   transition: 0.2s linear;
 }
 
+/* ----------home section slider css */
+.home-section{
+  position: relative;
+  margin-bottom: 2rem;
+}
+.slider{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  max-width:80vh;
+  width: 100%;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
+.slider__slider{
+  height: 80vh;
+  min-width:100vw;
+  width: 100%;
+  scroll-snap-align:start;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+
+}
+.slider__slider .slide-detail{
+  position: absolute;
+  top:30%;
+  left:20%;
+  text-align: center;
+}
+.slider__slider .slide-detail h1{
+  
+  font-size: 30px;
+  color:#fff;
+  text-transform: uppercase;
+  position: relative;
+}
+.slider__slider .slide-detail h1::before{
+  position: absolute;
+  content: '';
+  background-color: #e2e224;
+  width: 300px;
+  height: 1px;bottom: -40%;
+  left:20%;
+}
+.slider__slider .slide-detail h1::after{
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  bottom: -50%;
+  left:50%;
+  background-color: #f7b90f;
+}
+.slider__slider .slider-detail p{
+  font-size: 14px;
+  color:#fff;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+}
+.slide1{
+  background-image: url("./images/image1.jpg");
+}
+.slide2{
+  background-image: url("./images/image1.jpg");
+}
+.slide3{
+  background-image: url("./images/image1.jpg");
+}
+.slide4{
+  background-image: url("./images/image1.jpg");
+}
+  .slide5{
+  background-image: url("./images/image1.jpg");
+}
+.left-arrow, .right-arrow{
+  position: absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size: 1rem;
+  width: 40px;
+  height:40px;
+  border-radius: 50%;
+  background-color: var(--lightgreen);
+  box-shadow: 0 0 0 6px rgba(255,255,255/40%);
+  z-index: 2;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color:#fff;
+
+}
+
+.right-arrow{
+  right: 1rem;
+  
+}
+.left-arrow{
+  left: 1rem;
+
+}
+.hero-doc-top,.hero-doc-bottom{
+  position: absolute;
+  left:5%; 
+  width:100px;
+  height:100px;
+}
+.hero-doc-top{
+  top:4%;
+  border-left: 2px solid #e2e2e255;
+  border-top: 2px solid #e2e2e255;
+}
+.hero-doc-bottom{
+  bottom:5%;
+  border-left: 2px solid #e2e2e255;
+  border-bottom: 2px solid #e2e2e255;
+}
+/* --------------------footer section css */
+.top-footer {
+  width: 100%;
+  background-color: var(--green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.top-footer h2 i {
+  margin: right 0.5rem;
+}
+.top-footer input {
+  width: 40vw;
+}
+footer {
+  background-image: url("./images/image1.jpg");
+  width: 100%;
+  min-height: 79vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.footer .overlay {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+}
+.footer-content {
+  position: absolute;
+  top: 10%;
+}
+.footer-content .img-box {
+  text-align: center;
+}
+footer .inner-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+footer .inner-footer .card {
+  margin: 0.5rem;
+}
+footer .inner-footer .card li {
+  cursor: pointer;
+  line-height: 1.5rem;
+  text-transform: capitalize;
+  font-size: 16px;
+}
+footer .inner-footer .card li:nth-child(1),
+footer .inner-footer .card p {
+  margin-top: 1rem;
+}
+footer .inner-footer .card p {
+  margin-bottom: 1rem;
+  font-size: 18px;
+}
+footer .inner-footer .card .social-links i {
+  width: 50px;
+  height: 50px;
+  line-height: 25px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  color: var(--green);
+  cursor: pointer;
+  padding: 0.6rem;
+  font-size: 1.3rem;
+}
+footer .inner-footer .card h3{
+  text-transform: uppercase;
+}
+footer .inner-footer .card .social-links i:hover{
+  background-color: var(--lightgreen);
+}
+footer .bottom-footer {
+  text-transform: capitalize;
+  text-align: center;
+  padding: 3rem 0;
+  color: #000;
+  padding-bottom: 1rem;
+}
 /* -------------------media scrieen */
 
 @media (max-width: 991px) {
   #menu-btn {
     display: block;
   }
-  .heaader .flex .navbar {
+  .header .flex .navbar {
+    /* positioning a navbar */
     position: absolute;
+    /* this is width */
     width: 100%;
     padding: 0 2rem;
+    /* 130% up from screen*/
     top: 130%;
     left: 0;
-    display: block;
     right: 0;
-    border-top: 1px solid var(--green);
+    border-bottom: 1px solid var(--green);
     background-color: #fff;
-    transition: 0.3s ease;
-    clip-path: polygon(0, 0, 100%, 0 100%, 0 0);
+    transition: top 0.3s ease, clip-path 0.3s ease; /* Transition top and clip-path for smooth animation */
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 0,
+      0 0
+    ); /* Hides the navbar initially */
   }
+
   .header .flex .navbar.active {
-    transform:translatey(100%);
+    top: 100%; /* Bring the navbar into view when active */
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    ); /* Reveals the entire navbar */
   }
+
   .header .flex .navbar a {
     display: block;
     margin: 2rem;
-    border-top: 1px solid var(--green);
+    border-bottom: 1px solid var(--green);
   }
   .form-container {
     width: 100%;

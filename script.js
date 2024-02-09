@@ -1,5 +1,5 @@
 const header = document.querySelector('header');
-
+// fixed nabar will be actiated if scrolled 
 function fixedNavbar() {
     // if found sroll vertical moved then fix the navbar 
     header.classList.toggle('scroll', window.scrollY > 0);
