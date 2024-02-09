@@ -20,7 +20,11 @@ html {
 body {
   /* background-image: url("./images/image1.jpg"); */
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+/* main styling================= */
 .main {
   width: 85vw;
   background: #fff;
@@ -145,6 +149,7 @@ button {
 .title2 a {
   color: var(--green);
 }
+/*ending of main styling================= */
 
 /* header css */
 header {
@@ -231,6 +236,8 @@ header.scrolled {
   transform: scale(1);
   transition: 0.2s linear;
 }
+
+/* header css */
 
 /* ----------home section slider css */
 .home-section {
@@ -352,6 +359,8 @@ header.scrolled {
   border-left: 2px solid #e2e2e255;
   border-bottom: 2px solid #e2e2e255;
 }
+/* ----------home section slider ending */
+
 
 /* thumbnail image */
 .thumb {
@@ -399,6 +408,10 @@ header.scrolled {
   border: 2px solid var(--green);
   cursor: pointer;
 }
+/* thumbnail image enidng*/
+
+
+
 /* box image with products */
 .container .box {
   text-align: center;
@@ -419,6 +432,7 @@ header.scrolled {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+/* box image with products ending */
 
 /* sbop css */
 .row .box-container {
@@ -439,6 +453,10 @@ header.scrolled {
   width: 130px;
   margin: 0 0 0 13px;
 }
+/* sbop css ending*/
+
+
+
 /*--------------------- shop category css */
 .shop-category .box {
   position: relative;
@@ -458,6 +476,7 @@ header.scrolled {
 .shop-category .detail span {
   font-size: 1.2rem;
 }
+/*--------------------- shop category css ending   */
 /* --------------------footer section css */
 .top-footer {
   width: 100%;
@@ -555,6 +574,9 @@ footer .bottom-footer {
   color: #000;
   padding-bottom: 1rem;
 }
+/* --------------------footer section css ending */
+
+
 /* -------------------media scrieen */
 
 @media (max-width: 991px) {
@@ -603,4 +625,155 @@ footer .bottom-footer {
   form {
     width: 100%;
   }
+}
+/* media query ending */
+/* 
+
+
+
+about page
+
+
+
+*/
+.banner{
+ background-color: var(--light-yellow);
+}
+.about-category{
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  margin: 2rem auto;
+  
+}
+.about-category .box{
+  position: relative;
+  margin: 1rem;
+  box-shadow: 1px 2px 11px var(--green);
+}
+.about-category .box img{
+  width: 60%;
+}
+.about-category .box:nth-child(2) img{
+  width: 75%;
+}
+.about-category .box .detail{
+  position: absolute;
+  top:30%;
+  right: 10%;
+}
+.about-category .box .detail h1{
+  margin-bottom: 1.5rem;
+}
+.about-category .box .detail span{
+  text-transform: uppercase;
+  font-size: 20px;
+  color: #555;
+}
+.about-category .box .detail .btn{
+  opacity: 0.6;
+}
+.about .row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.about .row .detail p{
+  margin-bottom: 2rem;
+}
+.about .row .img-box{
+  width: 50%;
+}
+
+.about .row .detail h1{
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.main-container{
+  background-color: #fff;
+  width: 60vw;
+  min-width:80vh;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:2rem auto;
+  padding: 1rem 0;
+}
+
+.form-container{
+  width: 50vw;
+  margin: 0 auto;
+}
+.form-container input, textarea{
+  background-color: transparent;
+}
+.main-container p{
+  color:var(--green)
+}
+.form-container sup{
+  color: red;
+}
+.main-container input[type=submit]{
+  color: 0 !important;
+  cursor: pointer;
+}
+.form-container form{
+  margin: 1rem auto;
+  background-color: rgb(255,255,255/80%);
+  box-shadow: var(--box-shadow);
+  padding: 2rem;
+  position: relative;
+  border-radius: 5px;
+}
+.form-container form p{
+
+  text-transform: uppercase;
+}
+.form-container .form input{
+  width: 85%;
+  border-radius: 10px;
+}
+.form-container .title img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 4px 6px 9px var(--green);
+}
+
+.address{
+  background-image: url('./images/image3.jpg');
+  padding: 4rem 0;
+  min-height:50vh;
+  color: #fff;
+}
+.address .box-container {
+  justify-content: center;
+  align-items: center;
+}
+.address .box-container .box{
+  display: flex;justify-content: center;
+  align-items: center;
+  margin:1rem;
+  box-shadow: var(--box-shadow);
+  line-height: 2;
+  padding: 1rem 0;
+}
+.address .box-container .box h4{
+  text-transform: uppercase;
+  color: var(--green);
+}
+.address .box-container .box i{
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--green);
+  color: #fff;
 }
