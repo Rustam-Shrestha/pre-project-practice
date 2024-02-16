@@ -38,7 +38,7 @@
                     <input type="email" name="email" id="">
                 </div>
                 <div class="input-field">
-                    <p>Your name <sup>*</sup></p>
+                    <p>Your email <sup>*</sup></p>
                     <input type="text" name="number" id="">
                 </div>
                 <div class="input-field">
