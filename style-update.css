@@ -1,3 +1,5 @@
+.box ko img tag ko buddha ko width media query ma width decrease gara and overpflow problem is solved
+
 * {
   margin: 0;
   padding: 0;
@@ -247,7 +249,6 @@ header.scrolled {
 .slider {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  max-width: 80vh;
   width: 100%;
   display: flex;
   overflow-x: hidden;
@@ -439,8 +440,8 @@ header.scrolled {
   margin: 0 auto;
 }
 .row .box-container .box .img-box img {
-  max-width: 200px;
-  height: 200px;
+  max-width: 197px;
+  height: 265px;
 }
 .row .box-container .box {
   border: 1px dashed var(--green);
@@ -479,7 +480,7 @@ header.scrolled {
 /*--------------------- shop category css ending   */
 /* --------------------footer section css */
 .top-footer {
-  width: 100%;
+  width: 93%;
   background-color: var(--green);
   display: flex;
   justify-content: space-between;
@@ -498,7 +499,7 @@ header.scrolled {
 footer {
   color: #fff;
   background-image: url("./images/image4.jpg");
-  width: 100%;
+  width: 93%;
   min-height: 79vh;
   background-repeat: no-repeat;
   background-size: cover;
