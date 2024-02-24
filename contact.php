@@ -17,7 +17,7 @@
     <?php include "components/header.php"; ?>
     <div class="contact">
         <div class="banner">
-            <h1>About us</h1>
+            <h1>contact us</h1>
         </div>
 
         <div class="title2">
