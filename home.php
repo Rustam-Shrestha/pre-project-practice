@@ -1,7 +1,21 @@
-<?php include "components/connection.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
+<?php include "components/connection.php"; 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+if(isset($_SESSION['user_id'])){
+    $user_id= $_SESSION['user_id'];
+}else{
+    $user_id = "";
+}
+if(isset($_POST['logout'])){
+    session_destroy();
+    header("location: login.php");
+}
+?>
 
 <head>
     <meta charset="UTF-8">

@@ -1,3 +1,4 @@
+
 <header class="header">
     <div class="flex">
         <a href="home.php">
@@ -19,10 +20,10 @@
         </div>
         <div class="user-box">
             <p>username: <span>
-                    <!-- <?php $_SESSION['user_name'] ?> -->
+            <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ""; ?>
                 </span></p>
             <p>Email: <span>
-                    <!-- <?php $_SESSION['user_email'] ?> -->
+            <?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ""; ?>
                 </span></p>
             <a href="login.php" class="btn">Log in</a>
             <a href="register.php" class="btn">Register</a>

@@ -22,7 +22,7 @@ userBtn.addEventListener('click', function () {
 
 // homepage slider
 
-"use stict"
+"use strict"
 
 const leftArrow = document.querySelector('.left-arrow .bxs-left-arrow')
 rightArrow = document.querySelector('.right-arrow .bxs-right-arrow')
