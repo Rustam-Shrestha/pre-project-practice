@@ -30,6 +30,7 @@
     
         if ($select_user->rowCount() > 0) {
             $message[] = "Email already exists in the database";
+           
         } else {
             if ($pass != $cpass) {
                 $message[] = "Passwords do not match";
@@ -37,7 +38,7 @@
                 $query = "INSERT INTO `users` (id, name, email, password) VALUES(?,?,?,?)";
                 $insert_user = $con->prepare($query);
                 $insert_user->execute([$id, $name, $email, $pass]);
-    
+                header("location: home.php");
                 $sqlQuery = "SELECT * FROM `users` where email= ? AND password = ?";
                 $select_user = $con->prepare($sqlQuery);
                 $select_user->execute([$email, $pass]);
@@ -46,9 +47,7 @@
                     $_SESSION['user_id'] = $row["id"];
                     echo $row["id"];
                     $_SESSION['user_name'] = $row["name"];
-                    echo $row["name"];
                     $_SESSION['user_email'] = $row["email"];
-                    echo $row["email"];
                 }
             }
         }
@@ -59,6 +58,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" conntent="width=device-width, initial-scale=1.0">
     <title>Rustam-register</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         <?php include "style.css";
          ?>
@@ -98,7 +98,7 @@
             <p>already have an account? <a href="login.php">Log in</a></p>
         </form>
     </div>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
