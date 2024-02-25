@@ -103,7 +103,8 @@ if (isset($_POST['add_to_cart'])) {
                             <img src="image/<?php echo $fetch_products['image'] ?>" alt="product picture">
                             <div class="detail">
                                 <div class="price">
-                                    <?php echo $fetch_products['price'] ?>
+                                    Rs.
+                                    <?php echo $fetch_products['price'] ?> /-
                                 </div>
                                 <div class="name">
                                     <?php echo $fetch_products['name'] ?>
@@ -113,14 +114,12 @@ if (isset($_POST['add_to_cart'])) {
                                         dolor? Molestiae praesentium commodi neque id fugit doloribus voluptates quae!</p>
                                 </div>
                             </div>
-                            <input type="hidden" name="product_id" value=<?php $fetch_products['id'] ?>>
-                            <button class="button">
-                                <button class="btn" type="submit" name="add_wishlist">add to wishlist<i
-                                        class="bx bx-heart"></i></button>
-                                <input type="hidden" name="qty" value="1" min="0" class="quantity">
-                                <button class="btn" type="submit" name="add_to_cart">add to cart<i class="bx bx-cart"></i></button>
+                            <input type="hidden" name="product_id" value="<?php echo $fetch_products['id']; ?>">
+                            <button class="btn" type="submit" name="add_wishlist">add to wishlist<i
+                                    class="bx bx-heart"></i></button>
+                            <input type="hidden" name="qty" value="1" min="0" class="quantity">
+                            <button class="btn" type="submit" name="add_to_cart">add to cart<i class="bx bx-cart"></i></button>
 
-                            </button>
                         </form>
                         <?php
                     }

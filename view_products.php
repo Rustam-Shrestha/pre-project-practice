@@ -115,7 +115,7 @@ if (isset($_POST['add_to_cart'])) {
 
                             <div class="flex">
                                 <p class="price">price:
-                                    <?= $fetch_products['price']; ?>
+                                   Rs.  <?= $fetch_products['price']; ?>/-
                                 </p>
                                 <input type="number" name="qty" required value="1" min="1" max="99" maxlength="2" class="qty">
                             </div>
