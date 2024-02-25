@@ -54,7 +54,7 @@
                 <a href="view_products.php" class="btn">shop now</a>
             </div>
         </div>
-        
+
     </div>
     <div class="about">
         <div class="row">
@@ -63,7 +63,9 @@
             </div>
             <div class="detail">
                 <h1>Lorem ipsum dolor sit amet.</h1>
-                <b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam reiciendis exercitationem quae quaerat? Vel, distinctio. Similique reiciendis enim iusto aspernatur distinctio illo voluptatum, aperiam delectus cupiditate ea.</b>
+                <b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam reiciendis exercitationem quae quaerat?
+                    Vel, distinctio. Similique reiciendis enim iusto aspernatur distinctio illo voluptatum, aperiam
+                    delectus cupiditate ea.</b>
                 <a href="view_products.php" class="btn"></a>
             </div>
         </div>

@@ -1,4 +1,3 @@
-
 <header class="header">
     <div class="flex">
         <a href="home.php">
@@ -13,17 +12,31 @@
         </nav>
         <div class="icons">
             <i class="bx bx-user" id="user-btn" alt="user icon"></i>
-            <a href="wishlist.php" class="cart-btn"> <i class="bx bx-heart"></i><sup>0</sup></a>
-            <a href="cart.php" class="cart-btn"> <i class="bx bx-cart-download"></i><sup>0</sup></a>
+            <?php
+            $count_wishlist_items = $con->prepare("SELECT * FROM `wishlist` WHERE user_id = ?");
+            $count_wishlist_items->execute([$user_id]);
+            $total_wishlist_items = $count_wishlist_items->rowCount();
+            ?>
+            <a href="wishlist.php" class="cart-btn"> <i class="bx bx-heart"></i><sup>
+                    <?= $total_wishlist_items ?>
+                </sup></a>
+            <?php
+            $count_cart_items = $con->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+            $count_cart_items->execute([$user_id]);
+            $total_cart_items = $count_cart_items->rowCount();
+            ?>
+            <a href="cart.php" class="cart-btn"> <i class="bx bx-cart-download"></i><sup>
+                    <?= $total_cart_items ?>
+                </sup></a>
             <i class="bx-list-plus bx" id="menu-btn" style="font-size:2rem;"></i>
 
         </div>
         <div class="user-box">
             <p>username: <span>
-            <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ""; ?>
+                    <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ""; ?>
                 </span></p>
             <p>Email: <span>
-            <?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ""; ?>
+                    <?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ""; ?>
                 </span></p>
             <a href="login.php" class="btn">Log in</a>
             <a href="register.php" class="btn">Register</a>

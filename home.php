@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php include "components/connection.php";
@@ -163,17 +162,17 @@ if (isset($_POST['logout'])) {
         </section>
         <section class="shop">
             <div class="title">
-  
+
                 <h1>Trending products</h1>
             </div>
             <div class="row">
                 <!-- <img src="./images/image4.jpg" alt="img4"> -->
-              
+
                 <div class="top-footer">
                     An apple a day keeps the doctor away
                 </div>
                 <div class="box-container">
-                    
+
                     <div class="box">
                         <div class="img-box">
                             <img src="./images/image1.jpg" alt="img1">
@@ -216,8 +215,8 @@ if (isset($_POST['logout'])) {
                         <strong>Lorem ipsum dolor sit. amet oius</strong>
                         <a class="btn" href="view_products.php">shop now</a>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </section>
