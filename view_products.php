@@ -1,40 +1,69 @@
-<?php include "components/connection.php"; 
+<?php include "components/connection.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-if(isset($_SESSION['user_id'])){
-    $user_id= $_SESSION['user_id'];
-}else{
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
     $user_id = "";
 }
-if(isset($_POST['logout'])){
+if (isset($_POST['logout'])) {
     session_destroy();
     header("location: login.php");
 }
 // adding a product in wishlist
-if(isset($_POST['add_wishlist'])){
-    $id= uniq_poet();
-    $product_id=$_POST['product_id'];
+if (isset($_POST['add_wishlist'])) {
+    $id = uniq_poet();
+    $product_id = $_POST['product_id'];
     $verify_wishlist = $con->prepare('SELECT * FROM `wishlist` WHERE user_id = ? AND product_id = ?');
     $verify_wishlist->execute([$user_id, $product_id]);
-    $cart_num =  $con->prepare('SELECT * FROM `cart` WHERE user_id = ? AND product_id = ?');
+    $cart_num = $con->prepare('SELECT * FROM `cart` WHERE user_id = ? AND product_id = ?');
     $cart_num->execute([$user_id, $product_id]);
-    if($verify_wishlist->rowCount()>0){
-        $warning_msg[]= 'product already exists in your wishlist';
-        
-    }else if($cart_num->rowCount()>0){
-        $warning_msg[]= 'product already exists in your cart';
-        
-    }else{
+    if ($verify_wishlist->rowCount() > 0) {
+        $warning_msg[] = 'product already exists in your wishlist';
+
+    } else if ($cart_num->rowCount() > 0) {
+        $warning_msg[] = 'product already exists in your cart';
+
+    } else {
         $select_price = $con->prepare("SELECT * FROM `product` WHERE id= ? LIMIT 1");
         $select_price->execute([$product_id]);
         $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
         $insert_wishlist = $con->prepare("INSERT INTO `wishlist` (id, user_id, product_id, price) VALUES(?,?,?,?)");
         $insert_wishlist->execute([$id, $user_id, $product_id, $fetch_price['price']]);
-        $success_msg[]= 'successfully added to cart';
+        $success_msg[] = 'successfully added to cart';
     }
 }
+
+// adding a product in cart
+if (isset($_POST['add_to_cart'])) {
+    $id = uniq_poet();
+    $product_id = $_POST['product_id'];
+    $qty = $_POST['qty'];
+    $qty = filter_var($qty, FILTER_SANITIZE_STRING);
+
+    $verify_cart = $con->prepare('SELECT * FROM `cart` WHERE user_id = ? AND product_id = ?');
+    $verify_cart->execute([$user_id, $product_id]);
+
+    $max_cart_items = $con->prepare("SELECT * FROM `cart` WHERE user_id=? ");
+    $max_cart_items->execute([$user_id]);
+    if ($verify_cart->rowCount() > 0) {
+        $warning_msg[] = 'product already in your cart';
+
+    } else if ($max_cart_items->rowCount()>20) {
+        $warning_msg[] = 'cart is already full';
+
+    } else {
+        $select_price = $con->prepare("SELECT * FROM `product` WHERE id= ? LIMIT 1");
+        $select_price->execute([$product_id]);
+        $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
+        $insert_cart = $con->prepare("INSERT INTO `cart` (id, user_id, product_id, price, qty) VALUES(?,?,?,?,?)");
+        $insert_cart->execute([$id, $user_id, $product_id, $fetch_price['price'],$qty]);
+        $success_msg[] = 'successfully added to cart';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +103,8 @@ if(isset($_POST['add_wishlist'])){
                             <div class="button">
 
                                 <button type="submit" name="add_to_cart"> <i class="bx bx-cart"></i></button>
-                                <button type="submit" name="add_wishlist" value="<?= $fetch_products['id']; ?>"> <i class="bx bx-heart"></i></button>
+                                <button type="submit" name="add_wishlist" value="<?= $fetch_products['id']; ?>"> <i
+                                        class="bx bx-heart"></i></button>
 
                                 <a href="viewpage.php?id=<?php echo $fetch_products['id']; ?>" class="bx bxs-show"></a>
                             </div>

@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include "components/connection.php"; 
+<?php include "components/connection.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-if(isset($_SESSION['user_id'])){
-    $user_id= $_SESSION['user_id'];
-}else{
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
     $user_id = "";
 }
-if(isset($_POST['logout'])){
+if (isset($_POST['logout'])) {
     session_destroy();
     header("location: login.php");
 }
@@ -244,7 +244,6 @@ if(isset($_POST['logout'])){
         </section>
     </div>
     <?php include "components/footer.php"; ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="script.js"></script>
     <?php include "components/alert.php"; ?>
