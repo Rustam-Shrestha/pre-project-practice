@@ -63,6 +63,23 @@ if (isset($_POST['add_to_cart'])) {
         $success_msg[] = 'successfully added to cart';
     }
 }
+// delete from wishlist
+if (isset($_POST['delete_item'])) {
+    $wishlist_id = $_POST['wishlist_id'];
+    $wishlist_id = filter_var($wishlist_id, );
+    $verify_delete_item = $con->prepare("SELECT * FROM `wishlist` WHERE id=?");
+    $verify_delete_item->execute([$wishlist_id]);
+    if ($verify_delete_item->rowCount() > 0) {
+        $delete_wishlist_id = $con->prepare("DELETE FROM `wishlist` WHERE id=?");
+        $delete_wishlist_id->execute([$wishlist_id]);
+        $success_msg[] = "successfully deleted an wishlist item";
+
+    } else {
+        $warning_msg[] = "wishlist item already deleted";
+    }
+
+
+}
 
 ?>
 
@@ -73,7 +90,7 @@ if (isset($_POST['add_to_cart'])) {
     <meta charset="UTF-8">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>view products</title>
+    <title>wishlist page</title>
     <style>
         <?php include "style.css"; ?>
     </style>
@@ -83,53 +100,59 @@ if (isset($_POST['add_to_cart'])) {
     <?php include "components/header.php"; ?>
     <div class="products">
         <div class="banner">
-            <h1>our products us</h1>
+            <h1>product detail</h1>
         </div>
 
         <div class="title2">
-            <a href="home.php">home</a><span>/products</span>
+            <a href="home.php">home</a><span>/my wishlist</span>
         </div>
         <section class="products">
+            <h1 class="title">Products added in wishlist</h1>
             <div class="box-container">
                 <?php
-                $select_products = $con->prepare("SELECT * FROM `product`");
-                $select_products->execute();
-                if ($select_products->rowCount() > 0) {
-                    while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
-                        <form action="" method="post" class="box">
+                $grand_total = 0;
+                $select_wishlist = $con->prepare("SELECT * FROM `wishlist` WHERE user_id= ?");
+                $select_wishlist->execute([$user_id]);
+                if ($select_wishlist->rowCount()) {
+                    while ($fetch_wishlist = $select_wishlist->fetch(PDO::FETCH_ASSOC)) {
 
-                            <img src="image/<?= $fetch_products['image']; ?>" class='img' />
-                            <div class="button">
+                        $select_products = $con->prepare("SELECT * FROM `product` WHERE id= ?");
+                        $select_products->execute([$fetch_wishlist["product_id"]]);
+                        if ($select_products->rowCount() > 0) {
+                            $fetch_products = $select_products->fetch(PDO::FETCH_ASSOC);
+                            ?>
+                            <form action="" method="post" class="box">
+                                <input type="hidden" name="wishlist_id" value="<?= $fetch_wishlist['id'] ?>">
+                                <img src="image/<?= $fetch_products['image']; ?>" alt="">
+                                <div class="button">
+                                    <button type="submit" name="add_to_cart"> <i class="bx bx-cart"></i></button>
+                                    <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="bx bxs-show"></a>
+                                    <button type="submit" name="delete_item" onclick="return confirm('delete this item?')"><i
+                                            class="bx bx-x"></i></button>
+                                    <h3 class="name">
+                                        <?= $fetch_products['name']; ?>
+                                    </h3>
+                                    <input type="hidden" name="product_id" value="<?= $fetch_products['id'] ?>">
+                                    <div class="flex">
+                                        <p class="price">price: Rs.
+                                            <?= $fetch_products['price'] ?>/-
+                                        </p>
+                                    </div>
+                                    <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn">buy now</a>
 
-                                <button type="submit" name="add_to_cart"> <i class="bx bx-cart"></i></button>
-                                <button type="submit" name="add_wishlist" value="<?= $fetch_products['id']; ?>"> <i
-                                        class="bx bx-heart"></i></button>
+                                </div>
+                            </form>
 
-                                <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="bx bxs-show"></a>
-                            </div>
-                            <h3 class="name">
-                                <?= $fetch_products['name']; ?>
-                            </h3>
-                            <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>">
-
-                            <div class="flex">
-                                <p class="price">price:
-                                    Rs.
-                                    <?= $fetch_products['price']; ?>/-
-                                </p>
-                                <input type="number" name="qty" required value="1" min="1" max="99" maxlength="2" class="qty">
-                            </div>
-                            <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn">buy now</a>
-
-                        </form>
-                        <?php
+                            <?php
+                            $grand_total += $fetch_wishlist['price'];
+                        }
                     }
                 } else {
-                    echo '<p class="empty">no products added yet! </p>';
+                    echo "<p class='empty'>no products added yet </p>";
                 }
                 ?>
             </div>
+
         </section>
     </div>
     <?php include "components/footer.php"; ?>
