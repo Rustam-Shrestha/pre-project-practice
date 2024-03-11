@@ -91,7 +91,7 @@ if (isset($_POST['delete_item'])) {
                     while ($fetch_carts = $select_cart->fetch(PDO::FETCH_ASSOC)) {
 
                         $select_products = $con->prepare("SELECT * FROM `product` WHERE id= ?");
-                        $select_products->execute([$fetch_wishlist["product_id"]]);
+                        $select_products->execute([$fetch_carts["product_id"]]);
                         if ($select_products->rowCount() > 0) {
                             $fetch_products = $select_products->fetch(PDO::FETCH_ASSOC);
                             ?>
@@ -111,7 +111,7 @@ if (isset($_POST['delete_item'])) {
                             </form>
 
                             <?php
-                            $grand_total += $fetch_wishlist['price'];
+                            $grand_total += $fetch_carts['price'];
                         }
                     }
                 } else {
