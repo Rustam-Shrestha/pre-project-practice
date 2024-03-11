@@ -36,37 +36,11 @@ if (isset($_POST['add_wishlist'])) {
     }
 }
 
-// adding a product in cart
-if (isset($_POST['add_to_cart'])) {
-    $id = uniq_poet();
-    $product_id = $_POST['product_id'];
-    $qty = $_POST['qty'];
-    $qty = filter_var($qty, FILTER_SANITIZE_NUMBER_INT);
 
-    $verify_cart = $con->prepare('SELECT * FROM `cart` WHERE user_id = ? AND product_id = ?');
-    $verify_cart->execute([$user_id, $product_id]);
-
-    $max_cart_items = $con->prepare("SELECT * FROM `cart` WHERE user_id=? ");
-    $max_cart_items->execute([$user_id]);
-    if ($verify_cart->rowCount() > 0) {
-        $warning_msg[] = 'product already in your cart';
-
-    } else if ($max_cart_items->rowCount() > 20) {
-        $warning_msg[] = 'cart is already full';
-
-    } else {
-        $select_price = $con->prepare("SELECT * FROM `product` WHERE id= ? LIMIT 1");
-        $select_price->execute([$product_id]);
-        $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
-        $insert_cart = $con->prepare("INSERT INTO `cart` (id, user_id, product_id, price, qty) VALUES(?,?,?,?,?)");
-        $insert_cart->execute([$id, $user_id, $product_id, $fetch_price['price'], $qty]);
-        $success_msg[] = 'successfully added to cart';
-    }
-}
 // delete from wishlist
 if (isset($_POST['delete_item'])) {
     $wishlist_id = $_POST['wishlist_id'];
-    $wishlist_id = filter_var($wishlist_id, FILTER_SANITIZE_NUMBER_INT);
+    $wishlist_id = filter_var($wishlist_id, );
     $verify_delete_item = $con->prepare("SELECT * FROM `wishlist` WHERE id=?");
     $verify_delete_item->execute([$wishlist_id]);
     if ($verify_delete_item->rowCount() > 0) {
@@ -90,7 +64,7 @@ if (isset($_POST['delete_item'])) {
     <meta charset="UTF-8">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wishlist page</title>
+    <title>cart page</title>
     <style>
         <?php include "style.css"; ?>
     </style>
@@ -104,17 +78,17 @@ if (isset($_POST['delete_item'])) {
         </div>
 
         <div class="title2">
-            <a href="home.php">home</a><span>/my wishlist</span>
+            <a href="home.php">home</a><span>/my cart</span>
         </div>
         <section class="products">
-            <h1 class="title">Products added in wishlist</h1>
+            <h1 class="title">Products added in cart</h1>
             <div class="box-container">
                 <?php
                 $grand_total = 0;
-                $select_wishlist = $con->prepare("SELECT * FROM `wishlist` WHERE user_id= ?");
-                $select_wishlist->execute([$user_id]);
-                if ($select_wishlist->rowCount()) {
-                    while ($fetch_wishlist = $select_wishlist->fetch(PDO::FETCH_ASSOC)) {
+                $select_cart = $con->prepare("SELECT * FROM `cart` WHERE user_id= ?");
+                $select_cart->execute([$user_id]);
+                if ($select_cart->rowCount()) {
+                    while ($fetch_carts = $select_cart->fetch(PDO::FETCH_ASSOC)) {
 
                         $select_products = $con->prepare("SELECT * FROM `product` WHERE id= ?");
                         $select_products->execute([$fetch_wishlist["product_id"]]);
@@ -122,25 +96,18 @@ if (isset($_POST['delete_item'])) {
                             $fetch_products = $select_products->fetch(PDO::FETCH_ASSOC);
                             ?>
                             <form action="" method="post" class="box">
-                                <input type="hidden" name="wishlist_id" value="<?= $fetch_wishlist['id'] ?>">
-                                <img src="image/<?= $fetch_products['image']; ?>" alt="">
-                                <div class="button">
-                                    <button type="submit" name="add_to_cart"> <i class="bx bx-cart"></i></button>
-                                    <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="bx bxs-show"></a>
-                                    <button type="submit" name="delete_item" onclick="return confirm('delete this item?')"><i
-                                            class="bx bx-x"></i></button>
-                                    <h3 class="name">
-                                        <?= $fetch_products['name']; ?>
-                                    </h3>
-                                    <input type="hidden" name="product_id" value="<?= $fetch_products['id'] ?>">
-                                    <div class="flex">
-                                        <p class="price">price: Rs.
-                                            <?= $fetch_products['price'] ?>/-
-                                        </p>
-                                    </div>
-                                    <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn">buy now</a>
-
+                                <input type="hidden" name="cart_id" value="<?= $fetch_carts['id'] ?>">
+                                <img src="image/<?= $fetch_products['image']; ?>" alt="" class="img">
+                                <h3 class="name">
+                                    <?= $fetch_products['name']; ?>
+                                </h3>
+                                <div class="flex">
+                                    <p class="price">price: Rs.
+                                        <?= $fetch_products['price'] ?>/-
+                                    </p>
                                 </div>
+
+
                             </form>
 
                             <?php
@@ -152,6 +119,7 @@ if (isset($_POST['delete_item'])) {
                 }
                 ?>
             </div>
+
 
         </section>
     </div>
