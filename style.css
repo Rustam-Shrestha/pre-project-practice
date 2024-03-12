@@ -843,12 +843,15 @@ textarea {
   border-radius: 0.5rem;
   font-size: 1.7rem;
   color: white;
-  height: 3.5rem;
-  width: 4.5rem;
+  height: 2.5rem;
+  width: 4rem;
   cursor: pointer;
+  margin: 8px;
+  background-color: var(--green);
 }
 .products .box-container .box .flex .fa-edit:hover {
   background-color: var(--lightgreen);
+  color:#000;
 }
 .products .box-container .box .sub-total {
   padding-bottom: 1rem;

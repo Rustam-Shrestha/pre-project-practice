@@ -39,17 +39,17 @@ if (isset($_POST['add_wishlist'])) {
 
 // delete from wishlist
 if (isset($_POST['delete_item'])) {
-    $wishlist_id = $_POST['wishlist_id'];
-    $wishlist_id = filter_var($wishlist_id, );
-    $verify_delete_item = $con->prepare("SELECT * FROM `wishlist` WHERE id=?");
-    $verify_delete_item->execute([$wishlist_id]);
+    $cart_id = $_POST['cart_id'];
+    $cart_id = filter_var($cart_id, FILTER_SANITIZE_NUMBER_INT);
+    $verify_delete_item = $con->prepare("SELECT * FROM `cart` WHERE id=?");
+    $verify_delete_item->execute([$cart_id]);
     if ($verify_delete_item->rowCount() > 0) {
-        $delete_wishlist_id = $con->prepare("DELETE FROM `wishlist` WHERE id=?");
-        $delete_wishlist_id->execute([$wishlist_id]);
-        $success_msg[] = "successfully deleted an wishlist item";
+        $delete_cart_id = $con->prepare("DELETE FROM `cart` WHERE id=?");
+        $delete_cart_id->execute([$cart_id]);
+        $success_msg[] = "successfully deleted an cart item";
 
     } else {
-        $warning_msg[] = "wishlist item already deleted";
+        $warning_msg[] = "cart item already deleted";
     }
 
 
@@ -97,21 +97,34 @@ if (isset($_POST['delete_item'])) {
                             ?>
                             <form action="" method="post" class="box">
                                 <input type="hidden" name="cart_id" value="<?= $fetch_carts['id'] ?>">
-                                <img src="image/<?= $fetch_products['image']; ?>" alt="" class="img">
+                                <img src="images/samsung.jpg" alt="" class="img">
                                 <h3 class="name">
                                     <?= $fetch_products['name']; ?>
                                 </h3>
+
                                 <div class="flex">
                                     <p class="price">price: Rs.
-                                        <?= $fetch_products['price'] ?>/-
-                                    </p>
+                                        <?= $fetch_products['price'] ?>/- </p>
+                                        <input type="number" name="qty" required min="1" value=<?= $fetch_carts['qty'] ?> max="99"
+                                            maxlength="2" class="qty">
+                                        <button type="submit" name="update_cart" class="bx bxs-edit fa-edit"></button>
                                 </div>
+                               
+                                <p class="subtotal">Sub total: <span>Rs.
+                                        <?= $sub_total = ($fetch_carts['qty'] * $fetch_carts['price']) ?>
+                                    </span> </p>
 
+
+                                <button type="submit" name="delete_item" class="btn"
+                                    onclick="return confirm('are u sure to delete this item');">delete</button>
 
                             </form>
 
                             <?php
-                            $grand_total += $fetch_carts['price'];
+                            $grand_total += $sub_total;
+                        } else {
+
+                            echo "<p class='empty'>products were not found </p>";
                         }
                     }
                 } else {
