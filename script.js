@@ -1,69 +1,60 @@
+"use strict";
+
 const header = document.querySelector('header');
-// fixed nabar will be actiated if scrolled 
+const menu = document.querySelector("#menu-btn");
+const userBtn = document.querySelector("#user-btn");
+const leftArrow = document.querySelector('.left-arrow .bxs-left-arrow');
+const rightArrow = document.querySelector('.right-arrow .bxs-right-arrow');
+const slider = document.querySelector('.slider');
+
 function fixedNavbar() {
-    // if found sroll vertical moved then fix the navbar 
     header.classList.toggle('scroll', window.scrollY > 0);
 }
 
-fixedNavbar();
-window.addEventListener('scroll', fixedNavbar)
-let menu = document.querySelector("#menu-btn");
-let userBtn = document.querySelector("#user-btn")
-menu.addEventListener('click', function () {
-    let nav = document.querySelector(".navbar");
-    nav.classList.toggle('active')
-})
-userBtn.addEventListener('click', function () {
-    let userBox = document.querySelector(".user-box")
-    userBox.classList.toggle('active');
-})
-
-
-
-// homepage slider
-
-"use strict"
-
-const leftArrow = document.querySelector('.left-arrow .bxs-left-arrow')
-rightArrow = document.querySelector('.right-arrow .bxs-right-arrow')
-slider= document.querySelector('.slider');
-// right scroller
-function scrollRight(){
-
-    if(slider.scrollWidth-slider.clientWidth===slider.scrollLeft){
+function scrollRight() {
+    if (slider.scrollWidth - slider.clientWidth === slider.scrollLeft) {
         slider.scrollTo({
-            left:0,
-            behavior:"smooth"
-        })
-    }else{
+            left: 0,
+            behavior: "smooth"
+        });
+    } else {
         slider.scrollBy({
-            left:window.innerWidth,
-            behavior:"smooth"
-        })
-        
+            left: window.innerWidth,
+            behavior: "smooth"
+        });
     }
 }
-function scrollLeft(){
+
+function scrollLeft() {
     slider.scrollBy({
         left: -window.innerWidth,
         behavior: "smooth"
-    })
+    });
 }
+
+function resetTimer() {
+    clearInterval(timerId);
+    timerId = setInterval(scrollRight, 7000);
+}
+
+fixedNavbar();
+window.addEventListener('scroll', fixedNavbar);
+menu.addEventListener('click', function () {
+    document.querySelector(".navbar").classList.toggle('active');
+});
+
+userBtn.addEventListener('click', function () {
+    document.querySelector(".user-box").classList.toggle('active');
+});
+
 let timerId = setInterval(scrollRight, 7000);
 
-function resrtTimer(){
-    clearInterval(timerId);
-    timerId=setInterval(scrollRight, 7000)
-}
-slider.addEventListener('click', function(e){
-    if(e.target===leftArrow){
+slider.addEventListener('click', function (e) {
+    if (e.target === leftArrow) {
         scrollLeft();
         resetTimer();
-    }
-})
-slider.addEventListener('click', function(e){
-    if(e.target===rightArrow){
+    } else if (e.target === rightArrow) {
         scrollRight();
         resetTimer();
     }
-})
+});

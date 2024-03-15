@@ -4,20 +4,20 @@
 <?php
 include "components/connection.php";
 session_start();
-include "components/header.php";
 if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['$user_id'];
+    $user_id = $_SESSION['user_id'];
 } else {
     $user_id = "";
 }
+include "components/header.php";
 //registering user
 
 if (isset($_POST['submit'])) {
 
     $email = $_POST['email'];
-    $email = filter_var($email, FILTER_SANITIZE_STRING);
+    $email = filter_var($email, FILTER_SANITIZE_STRIPPED);
     $pass = $_POST['pass'];
-    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+    $pass = filter_var($pass, FILTER_SANITIZE_STRIPPED);
 
     $query = "SELECT * FROM `users` WHERE email= ? AND password= ?";
     $select_user = $con->prepare($query);

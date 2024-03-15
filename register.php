@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <?php 
-    include "components/connection.php";
-    session_start();
-    include "components/header.php";
-    if(isset($_SESSION['user_id'])){
-        $user_id= $_SESSION['$user_id'];
-    }else{
-        $user_id = "";
-    }
-    //registering user
-    
-    if (isset($_POST['submit'])) {
-        $id = uniq_poet();
-        $name = $_POST['name'];
-        $name = filter_var($name, FILTER_SANITIZE_STRING);
-        $email = $_POST['email'];
-        $email = filter_var($email, FILTER_SANITIZE_STRING);
-        $pass = $_POST['pass'];
-        $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-        $cpass = $_POST['cpass'];
-        $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
-    
-        $query = "SELECT * FROM `users` WHERE email= ?";
-        $select_user = $con->prepare($query);
-        $select_user->execute([$email]);
-        $row = $select_user->fetch(PDO::FETCH_ASSOC);
-    
-        if ($select_user->rowCount() > 0) {
-            $message[] = "Email already exists in the database";
-           
+<?php
+include "components/connection.php";
+session_start();
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $user_id = "";
+}
+include "components/header.php";
+//registering user
+
+if (isset($_POST['submit'])) {
+    $id = uniq_poet();
+    $name = $_POST['name'];
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $email = $_POST['email'];
+    $email = filter_var($email, FILTER_SANITIZE_STRING);
+    $pass = $_POST['pass'];
+    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+    $cpass = $_POST['cpass'];
+    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+
+    $query = "SELECT * FROM `users` WHERE email= ?";
+    $select_user = $con->prepare($query);
+    $select_user->execute([$email]);
+    $row = $select_user->fetch(PDO::FETCH_ASSOC);
+
+    if ($select_user->rowCount() > 0) {
+        $message[] = "Email already exists in the database";
+
+    } else {
+        if ($pass != $cpass) {
+            $message[] = "Passwords do not match";
         } else {
-            if ($pass != $cpass) {
-                $message[] = "Passwords do not match";
-            } else {
-                $query = "INSERT INTO `users` (id, name, email, password) VALUES(?,?,?,?)";
-                $insert_user = $con->prepare($query);
-                $insert_user->execute([$id, $name, $email, $pass]);
-                header("location: home.php");
-                $sqlQuery = "SELECT * FROM `users` where email= ? AND password = ?";
-                $select_user = $con->prepare($sqlQuery);
-                $select_user->execute([$email, $pass]);
-                $row = $select_user->fetch(PDO::FETCH_ASSOC);
-                if ($select_user->rowCount() > 0) {
-                    $_SESSION['user_id'] = $row["id"];
-                    echo $row["id"];
-                    $_SESSION['user_name'] = $row["name"];
-                    $_SESSION['user_email'] = $row["email"];
-                }
+            $query = "INSERT INTO `users` (id, name, email, password) VALUES(?,?,?,?)";
+            $insert_user = $con->prepare($query);
+            $insert_user->execute([$id, $name, $email, $pass]);
+            header("location: home.php");
+            $sqlQuery = "SELECT * FROM `users` where email= ? AND password = ?";
+            $select_user = $con->prepare($sqlQuery);
+            $select_user->execute([$email, $pass]);
+            $row = $select_user->fetch(PDO::FETCH_ASSOC);
+            if ($select_user->rowCount() > 0) {
+                $_SESSION['user_id'] = $row["id"];
+                echo $row["id"];
+                $_SESSION['user_name'] = $row["name"];
+                $_SESSION['user_email'] = $row["email"];
             }
         }
     }
-    
-    ?>
+}
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" conntent="width=device-width, initial-scale=1.0">
@@ -61,7 +62,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         <?php include "style.css";
-         ?>
+        ?>
     </style>
 </head>
 

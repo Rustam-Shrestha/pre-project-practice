@@ -155,10 +155,8 @@ button {
 /* header css */
 header {
   position: fixed;
-  top: 5%;
-  left: 7%;
-  width: 85vw;
-  padding: 1rem;
+  width: 100vw;
+  padding: 2rem;
   z-index: 101;
   transition: 0.3s;
   box-shadow: var(--box-shadow);
@@ -380,6 +378,7 @@ header.scrolled {
   background: #fff;
   padding-bottom: 1rem;
   color: gray;
+  
 }
 
 .thumb .box-container .box img {
@@ -780,8 +779,9 @@ textarea {
 
 /* view products css    */
 .products .box-container {
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   justify-content: center;
+  
 }
 .products .box-container .box {
   box-shadow: var(--box-shadow);
@@ -808,6 +808,7 @@ textarea {
   border-radius: 20px;
   background: var(--lightgreen);
   padding: 0.5rem 1.5rem;
+  height: 180px;
 }
 .products .box-container .box .button i,
 .products .box-container .box .button a {
@@ -815,7 +816,10 @@ textarea {
   font-weight: bold;
   margin-left: 0.5rem;
   color: black;
+  margin-top: 55px;
+
 }
+
 
 .products .box-container .box .flex {
   display: flex;
@@ -851,7 +855,7 @@ textarea {
 }
 .products .box-container .box .flex .fa-edit:hover {
   background-color: var(--lightgreen);
-  color:#000;
+  color: #000;
 }
 .products .box-container .box .sub-total {
   padding-bottom: 1rem;
@@ -930,3 +934,16 @@ textarea {
 .cart-total .button .btn {
   margin: 1rem;
 }
+
+/* 
+.button{
+  position:relative ;
+}
+
+.button .btn{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 60px;
+} */

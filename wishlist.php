@@ -32,7 +32,7 @@ if (isset($_POST['add_wishlist'])) {
         $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
         $insert_wishlist = $con->prepare("INSERT INTO `wishlist` (id, user_id, product_id, price) VALUES(?,?,?,?)");
         $insert_wishlist->execute([$id, $user_id, $product_id, $fetch_price['price']]);
-        $success_msg[] = 'successfully added to cart';
+        $success_msg[] = 'successfully added to wiahlist';
     }
 }
 
@@ -41,7 +41,7 @@ if (isset($_POST['add_to_cart'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $qty = $_POST['qty'];
-    $qty = filter_var($qty, FILTER_SANITIZE_NUMBER_INT);
+    $qty = filter_var($qty, FILTER_SANITIZE_STRIPPED);
 
     $verify_cart = $con->prepare('SELECT * FROM `cart` WHERE user_id = ? AND product_id = ?');
     $verify_cart->execute([$user_id, $product_id]);
@@ -66,7 +66,7 @@ if (isset($_POST['add_to_cart'])) {
 // delete from wishlist
 if (isset($_POST['delete_item'])) {
     $wishlist_id = $_POST['wishlist_id'];
-    $wishlist_id = filter_var($wishlist_id, FILTER_SANITIZE_NUMBER_INT);
+    $wishlist_id = filter_var($wishlist_id, FILTER_SANITIZE_STRIPPED);
     $verify_delete_item = $con->prepare("SELECT * FROM `wishlist` WHERE id=?");
     $verify_delete_item->execute([$wishlist_id]);
     if ($verify_delete_item->rowCount() > 0) {
@@ -123,7 +123,8 @@ if (isset($_POST['delete_item'])) {
                             ?>
                             <form action="" method="post" class="box">
                                 <input type="hidden" name="wishlist_id" value="<?= $fetch_wishlist['id'] ?>">
-                                <img src="image/<?= $fetch_products['image']; ?>" alt="">
+                                <!-- use image/<= $fetch_products['image']; ?> instead -->
+                                <img src="images/samsung.jpg" alt="" class="img">
                                 <div class="button">
                                     <button type="submit" name="add_to_cart"> <i class="bx bx-cart"></i></button>
                                     <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="bx bxs-show"></a>
@@ -137,8 +138,8 @@ if (isset($_POST['delete_item'])) {
                                         <p class="price">price: Rs.
                                             <?= $fetch_products['price'] ?>/-
                                         </p>
+                                        <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn" style="font-size:13px; ">buy now</a>
                                     </div>
-                                    <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn">buy now</a>
 
                                 </div>
                             </form>
