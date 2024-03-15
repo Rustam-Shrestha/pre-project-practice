@@ -2,14 +2,14 @@
 
 session_start();
 // starting session for obtaining user login credentials
-if (isset($_SESSION['user_id'])) {
+if (isset ($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     $user_id = "";
 }
 
 // logging out user
-if (isset($_POST['logout'])) {
+if (isset ($_POST['logout'])) {
     session_destroy();
     header("location: login.php");
 }
@@ -20,7 +20,8 @@ if (isset($_POST['logout'])) {
 // adding a product in wishlist
 // why to add to wishlist? this is cart page
 // need to check later
-if (isset($_POST['add_wishlist'])) {
+// adding a product in wishlist
+if (isset ($_POST['add_wishlist'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $verify_wishlist = $con->prepare('SELECT * FROM `wishlist` WHERE user_id = ? AND product_id = ?');
@@ -34,7 +35,7 @@ if (isset($_POST['add_wishlist'])) {
         $warning_msg[] = 'product already exists in your wishlist';
 
     } else {
-        $select_price = $con->prepare('SELECT * FROM `product` WHERE id= ? LIMIT 1');
+        $select_price = $con->prepare("SELECT * FROM `product` WHERE id= ? LIMIT 1");
         $select_price->execute([$product_id]);
         $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
         $insert_wishlist = $con->prepare("INSERT INTO `wishlist` (id, user_id, product_id, price) VALUES(?,?,?,?)");
@@ -42,14 +43,25 @@ if (isset($_POST['add_wishlist'])) {
         $success_msg[] = 'successfully added to wishlist';
     }
 }
+// updating cart
+if (isset ($_POST['update_cart'])) {
+    $cart_id = $_POST['cart_id'];
+    // filtering the cart id sanitizing and safely
+    $cart_id = filter_var($cart_id, FILTER_SANITIZE_STRIPPED);
+    $qty = $_POST['qty'];
+    $qty = filter_var($qty, FILTER_SANITIZE_NUMBER_INT);
+    $update_qty = $con->prepare("UPDATE `cart` SET qty= ? WHERE id= ?");
+    $update_qty->execute([$qty,$cart_id]);
+    $success_msg[]="cart quantity is updated";
 
+}
 
 // delete from cart
-if (isset($_POST['delete_item'])) {
+if (isset ($_POST['delete_item'])) {
     // Assuming $con is a valid PDO connection
     // obtaining id with hidden input from cart product lists
     $cart_id = $_POST['cart_id'];
-    
+
     // filtering the cart id sanitizing and safely
     $cart_id = filter_var($cart_id, FILTER_SANITIZE_STRIPPED);
     echo $cart_id;
@@ -67,10 +79,20 @@ if (isset($_POST['delete_item'])) {
     } else {
         $error_msg[] = "Error deleting cart item ";
     }
-} else {
-    $warning_msg[] = "Cart item already deleted or does not exist";
 }
 
+// emptying a cart
+if (isset ($_POST['empty_cart'])) {
+    $verify_empty_item = $con->prepare("SELECT * FROM `cart` WHERE user_id= ?");
+    $verify_empty_item->execute([$user_id]);
+    if ($verify_empty_item->rowCount() > 0) {
+        $delete_cart_id = $con->prepare('DELETE FROM `cart` WHERE user_id=?');
+        $delete_cart_id->execute([$user_id]);
+        $success_msg[] = "emptied a cart item";
+    } else {
+        $error_msg[] = "Error emptying cart item ";
+    }
+}
 
 
 ?>
@@ -155,9 +177,30 @@ if (isset($_POST['delete_item'])) {
                 } else {
                     echo "<p class='empty'>no products added yet </p>";
                 }
-                
+
                 ?>
             </div>
+            <?php
+            if ($grand_total > 0) {
+
+                ?>
+                <div class="cart-total">
+                    <p>total amount payable : <span>
+                            <?= $grand_total; ?>
+                        </span></p>
+                    <div class="button">
+                        <form action="" method="post">
+                            <button type="submit" name="empty_cart" class="btn"
+                                onclick="return confirm('are you sure to empty your cart');">clear cart</button>
+
+                        </form>
+                        <a href="checkout.php" class="btn">proceed to checkout</a>
+                    </div>
+                </div>
+            <?php
+
+            }
+            ?>
 
 
         </section>

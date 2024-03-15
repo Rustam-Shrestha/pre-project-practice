@@ -176,7 +176,7 @@ header.scrolled {
   box-shadow: 0 5 20px 0.1px rgba(0, 0, 0, 0.1);
 }
 .header.scroiled a:hover {
-  color: var(--green);
+  color: rebeccapurple;
   display: flex;
   justify-content: center;
   align-items: space-between;
@@ -190,7 +190,7 @@ header.scrolled {
   text-transform: uppercase;
 }
 .navbar a:hover {
-  color: var(--green);
+  color: rebeccapurple;
 }
 .header .icons {
   display: flex;
@@ -561,7 +561,7 @@ footer .inner-footer .card h3 {
   text-transform: uppercase;
 }
 footer .inner-footer .card .social-links i:hover {
-  background-color: var(--lightgreen);
+  background-color: rebeccapurple;
 }
 footer .bottom-footer {
   text-transform: capitalize;
@@ -854,7 +854,7 @@ textarea {
   background-color: var(--green);
 }
 .products .box-container .box .flex .fa-edit:hover {
-  background-color: var(--lightgreen);
+  background-color: red;
   color: #000;
 }
 .products .box-container .box .sub-total {

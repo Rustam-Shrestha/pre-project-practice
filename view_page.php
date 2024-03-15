@@ -32,7 +32,7 @@ if (isset($_POST['add_wishlist'])) {
         $fetch_price = $select_price->fetch(PDO::FETCH_ASSOC);
         $insert_wishlist = $con->prepare("INSERT INTO `wishlist` (id, user_id, product_id, price) VALUES(?,?,?,?)");
         $insert_wishlist->execute([$id, $user_id, $product_id, $fetch_price['price']]);
-        $success_msg[] = 'successfully added to cart';
+        $success_msg[] = 'successfully added to wishlist';
     }
 }
 
