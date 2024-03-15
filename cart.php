@@ -51,8 +51,8 @@ if (isset ($_POST['update_cart'])) {
     $qty = $_POST['qty'];
     $qty = filter_var($qty, FILTER_SANITIZE_NUMBER_INT);
     $update_qty = $con->prepare("UPDATE `cart` SET qty= ? WHERE id= ?");
-    $update_qty->execute([$qty,$cart_id]);
-    $success_msg[]="cart quantity is updated";
+    $update_qty->execute([$qty, $cart_id]);
+    $success_msg[] = "cart quantity is updated";
 
 }
 
@@ -197,7 +197,7 @@ if (isset ($_POST['empty_cart'])) {
                         <a href="checkout.php" class="btn">proceed to checkout</a>
                     </div>
                 </div>
-            <?php
+                <?php
 
             }
             ?>

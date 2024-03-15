@@ -378,7 +378,6 @@ header.scrolled {
   background: #fff;
   padding-bottom: 1rem;
   color: gray;
-  
 }
 
 .thumb .box-container .box img {
@@ -781,7 +780,6 @@ textarea {
 .products .box-container {
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   justify-content: center;
-  
 }
 .products .box-container .box {
   box-shadow: var(--box-shadow);
@@ -817,9 +815,7 @@ textarea {
   margin-left: 0.5rem;
   color: black;
   margin-top: 55px;
-
 }
-
 
 .products .box-container .box .flex {
   display: flex;

@@ -3,17 +3,17 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-if (isset($_SESSION['user_id'])) {
+if (isset ($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     $user_id = "";
 }
-if (isset($_POST['logout'])) {
+if (isset ($_POST['logout'])) {
     session_destroy();
     header("location: login.php");
 }
 // adding a product in wishlist
-if (isset($_POST['add_wishlist'])) {
+if (isset ($_POST['add_wishlist'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $verify_wishlist = $con->prepare('SELECT * FROM `wishlist` WHERE user_id = ? AND product_id = ?');
@@ -37,7 +37,7 @@ if (isset($_POST['add_wishlist'])) {
 }
 
 // adding a product in cart
-if (isset($_POST['add_to_cart'])) {
+if (isset ($_POST['add_to_cart'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $qty = $_POST['qty'];
@@ -91,7 +91,7 @@ if (isset($_POST['add_to_cart'])) {
         </div>
         <section class="view_page">
             <?php
-            if (isset($_GET['pid'])) {
+            if (isset ($_GET['pid'])) {
                 $pid = $_GET['pid'];
                 $select_product = $con->prepare("SELECT * FROM `product` WHERE id= ?");
                 $select_product->execute([$pid]);

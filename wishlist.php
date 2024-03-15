@@ -1,17 +1,17 @@
 <?php include "components/connection.php";
 
 session_start();
-if (isset($_SESSION['user_id'])) {
+if (isset ($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     $user_id = "";
 }
-if (isset($_POST['logout'])) {
+if (isset ($_POST['logout'])) {
     session_destroy();
     header("location: login.php");
 }
 // adding a product in wishlist
-if (isset($_POST['add_wishlist'])) {
+if (isset ($_POST['add_wishlist'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $verify_wishlist = $con->prepare('SELECT * FROM `wishlist` WHERE user_id = ? AND product_id = ?');
@@ -35,7 +35,7 @@ if (isset($_POST['add_wishlist'])) {
 }
 
 // adding a product in cart
-if (isset($_POST['add_to_cart'])) {
+if (isset ($_POST['add_to_cart'])) {
     $id = uniq_poet();
     $product_id = $_POST['product_id'];
     $qty = $_POST['qty'];
@@ -62,7 +62,7 @@ if (isset($_POST['add_to_cart'])) {
     }
 }
 // delete from wishlist
-if (isset($_POST['delete_item'])) {
+if (isset ($_POST['delete_item'])) {
     $wishlist_id = $_POST['wishlist_id'];
     $wishlist_id = filter_var($wishlist_id, FILTER_SANITIZE_STRIPPED);
     $verify_delete_item = $con->prepare("SELECT * FROM `wishlist` WHERE id=?");
@@ -136,7 +136,8 @@ if (isset($_POST['delete_item'])) {
                                         <p class="price">price: Rs.
                                             <?= $fetch_products['price'] ?>/-
                                         </p>
-                                        <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn" style="font-size:13px; ">buy now</a>
+                                        <a href="checkout.php?get_id=<?= $fetch_products['id']; ?>" class="btn"
+                                            style="font-size:13px; ">buy now</a>
                                     </div>
 
                                 </div>
