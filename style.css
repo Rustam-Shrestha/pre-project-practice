@@ -943,3 +943,34 @@ textarea {
   width: 10px;
   height: 60px;
 } */
+
+
+
+/* styling of orders page */
+.top {
+  text-align: center;
+}
+
+.super-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap ;
+}
+
+.box-container .products .box {
+  border: 1.5px solid var(--green);
+  padding: 8px;   
+  margin: 12px;
+}
+.box-container .products{
+  display: flex;  
+  flex-wrap: wrap;
+  
+}
+.products img {
+  width: 200px;;
+  height: auto;
+}
+
+

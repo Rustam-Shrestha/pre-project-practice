@@ -122,63 +122,66 @@ if (isset ($_POST['empty_cart'])) {
         </div>
         <section class="products">
             <h1 class="title">Products added in cart</h1>
-            <div class="box-container">
-                <?php
-                $grand_total = 0;
-                $select_cart = $con->prepare("SELECT * FROM `cart` WHERE user_id= ?");
-                $select_cart->execute([$user_id]);
-                if ($select_cart->rowCount() > 0) {
-                    while ($fetch_carts = $select_cart->fetch(PDO::FETCH_ASSOC)) {
+            <div class="super-box">
 
-                        $select_products = $con->prepare("SELECT * FROM `product` WHERE id= ?");
-                        $select_products->execute([$fetch_carts["product_id"]]);
-                        if ($select_products->rowCount() > 0) {
-                            $fetch_products = $select_products->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <form action="" method="POST" class="box">
-                                <input type="hidden" name="cart_id" value="<?= $fetch_carts['id']; ?>">
-                                <?php
-                                echo "<br />";
-                                echo "<br />";
-                                echo $fetch_carts['id'];
+                <div class="box-container">
+                    <?php
+                    $grand_total = 0;
+                    $select_cart = $con->prepare("SELECT * FROM `cart` WHERE user_id= ?");
+                    $select_cart->execute([$user_id]);
+                    if ($select_cart->rowCount() > 0) {
+                        while ($fetch_carts = $select_cart->fetch(PDO::FETCH_ASSOC)) {
 
+                            $select_products = $con->prepare("SELECT * FROM `product` WHERE id= ?");
+                            $select_products->execute([$fetch_carts["product_id"]]);
+                            if ($select_products->rowCount() > 0) {
+                                $fetch_products = $select_products->fetch(PDO::FETCH_ASSOC);
                                 ?>
-                                <img src="images/samsung.jpg" alt="" class="img">
-                                <h3 class="name">
-                                    <?= $fetch_products['name']; ?>
-                                </h3>
+                                <form action="" method="POST" class="box">
+                                    <input type="hidden" name="cart_id" value="<?= $fetch_carts['id']; ?>">
+                                    <?php
+                                    echo "<br />";
+                                    echo "<br />";
+                                    echo $fetch_carts['id'];
 
-                                <div class="flex">
-                                    <p class="price">price: Rs.
-                                        <?= $fetch_products['price'] ?>/-
-                                    </p>
-                                    <input type="number" name="qty" required min="1" value=<?= $fetch_carts['qty'] ?> max="99"
-                                        maxlength="2" class="qty">
-                                    <button type="submit" name="update_cart" class="bx bxs-edit fa-edit"></button>
-                                </div>
+                                    ?>
+                                    <img src="images/samsung.jpg" alt="" class="img">
+                                    <h3 class="name">
+                                        <?= $fetch_products['name']; ?>
+                                    </h3>
 
-                                <p class="subtotal">Sub total: <span>Rs.
-                                        <?= $sub_total = ($fetch_carts['qty'] * $fetch_carts['price']) ?>
-                                    </span> </p>
+                                    <div class="flex">
+                                        <p class="price">price: Rs.
+                                            <?= $fetch_products['price'] ?>/-
+                                        </p>
+                                        <input type="number" name="qty" required min="1" value=<?= $fetch_carts['qty'] ?> max="99"
+                                            maxlength="2" class="qty">
+                                        <button type="submit" name="update_cart" class="bx bxs-edit fa-edit"></button>
+                                    </div>
+
+                                    <p class="subtotal">Sub total: <span>Rs.
+                                            <?= $sub_total = ($fetch_carts['qty'] * $fetch_carts['price']) ?>
+                                        </span> </p>
 
 
-                                <button type="submit" name="delete_item" class="btn"
-                                    onclick="return confirm('are u sure to delete this item');">delete</button>
-                                z
-                            </form>
+                                    <button type="submit" name="delete_item" class="btn"
+                                        onclick="return confirm('are u sure to delete this item');">delete</button>
+                                    z
+                                </form>
 
-                            <?php
-                            $grand_total += $sub_total;
-                        } else {
+                                <?php
+                                $grand_total += $sub_total;
+                            } else {
 
-                            echo "<p class='empty'>products were not found </p>";
+                                echo "<p class='empty'>products were not found </p>";
+                            }
                         }
+                    } else {
+                        echo "<p class='empty'>no products added yet </p>";
                     }
-                } else {
-                    echo "<p class='empty'>no products added yet </p>";
-                }
 
-                ?>
+                    ?>
+                </div>
             </div>
             <?php
             if ($grand_total > 0) {
